@@ -43,7 +43,7 @@ def truncate(content, length=15, suffix='...'):
 class DocsPublisher(object):
   """A DocsSample object demonstrates the Document List feed."""
 
-  def __init__(self, email, password):
+  def __init__(self, email, password, old):
     """Constructor for the DocsSample object.
 
     Takes an email and password corresponding to a gmail account to
@@ -65,7 +65,9 @@ class DocsPublisher(object):
     # Setup a spreadsheets service for downloading spreadsheets
     self.gs_client = gdata.spreadsheet.service.SpreadsheetsService()
     self.gs_client.ClientLogin(email, password, source=source)
-    self.docs = []
+    self.docs = {}
+    for i in old:
+        self.docs[i['resource_id']] = i
 
   def _ParseFeed(self, feed, context):
     """Prints out the contents of a feed to the console.
@@ -74,39 +76,36 @@ class DocsPublisher(object):
       feed: A gdata.docs.DocumentListFeed instance.
     """
     for entry in feed.entry:
-      doc = context.copy()
-      doc['authors'] = map(lambda x: x.name.text, entry.author)
-      doc['resource_id'] = entry.resourceId.text
-      doc['type'] = entry.GetDocumentType()
-      doc['title'] = entry.title.text.decode('utf8')
-      doc['slug'] = slugify(doc['title'])
-      doc['updated'] = entry.updated.text
-      print doc['resource_id']
-      if doc['type']=='document':
-          self.gd_client.Export(entry, "temp.html")
-      else:
-          docs_token = self.gd_client.GetClientLoginToken()
-          self.gd_client.SetClientLoginToken(self.gs_client.GetClientLoginToken())
-          self.gd_client.Export(entry, "temp.html", gid=0)
-          self.gd_client.SetClientLoginToken(docs_token)
-      f = open("temp.html", "r")
-      doc['html'] = re.search('<body.*?>(.*)</body>', f.read(), re.DOTALL).group(1).decode('utf8')
-      f.close()
-      self.docs.append(doc)
+        up = entry.updated.text
+        i = entry.resourceId.text
+        categories = map(lambda x: x.label, entry.category)
 
-  def _GetFileExtension(self, file_name):
-    """Returns the uppercase file extension for a file.
+        try:
+            old = self.docs[i]
+        except KeyError:
+            old = None
 
-    Args:
-      file_name: [string] The basename of a filename.
-
-    Returns:
-      A string containing the file extension of the file.
-    """
-    match = re.search('.*\.([a-zA-Z]{3,}$)', file_name)
-    if match:
-      return match.group(1).upper()
-    return False
+        if 'starred' in categories and (not old or up > old['updated']):
+            doc = context.copy()
+            doc['authors'] = map(lambda x: x.name.text, entry.author)
+            doc['resource_id'] = entry.resourceId.text
+            doc['type'] = entry.GetDocumentType()
+            doc['title'] = entry.title.text.decode('utf8')
+            doc['slug'] = slugify(doc['title'])
+            doc['updated'] = entry.updated.text
+            doc['categoreis'] = categories
+            print doc['resource_id']
+            if doc['type']=='document':
+                self.gd_client.Export(entry, "temp.html")
+            else:
+                docs_token = self.gd_client.GetClientLoginToken()
+                self.gd_client.SetClientLoginToken(self.gs_client.GetClientLoginToken())
+                self.gd_client.Export(entry, "temp.html", gid=0)
+                self.gd_client.SetClientLoginToken(docs_token)
+            f = open("temp.html", "r")
+            doc['html'] = re.search('<body.*?>(.*)</body>', f.read(), re.DOTALL).group(1).decode('utf8')
+            f.close()
+            self.docs[i] = doc
 
   def publish_docs(self, folder=ROOT_FOLDER):
     """Retrieves and displays a list of documents based on the user's choice."""
@@ -118,51 +117,10 @@ class DocsPublisher(object):
     for entry in feed.entry:
         folder_name = entry.title.text
         print "*** %s:" % folder_name
-        for cat in ['document', 'spreadsheet']:
-            query = gdata.docs.service.DocumentQuery(categories=[cat],)
+        for cat in ['starred']: #['document', 'spreadsheet']:
+            query = gdata.docs.service.DocumentQuery() #categories=[cat, ],)
             query.AddNamedFolder(OWNER_EMAIL, folder_name)
             feed = self.gd_client.Query(query.ToUri())
             path = '%s/%s' % (folder, folder_name)
             self._ParseFeed(feed, {'path':path.decode('utf8')})
     return json.dumps(self.docs)
-
-def main():
-  """Demonstrates use of the Docs extension using the DocsSample object."""
-  # Parse command line options
-  try:
-    opts, args = getopt.getopt(sys.argv[1:], '', ['user=', 'pw='])
-  except getopt.error, msg:
-    print 'python docs_example.py --user [username] --pw [password] '
-    sys.exit(2)
-
-
-  user = ''
-  pw = ''
-  key = ''
-  # Process options
-  for option, arg in opts:
-    if option == '--user':
-      user = arg
-    elif option == '--pw':
-      pw = arg
-
-  while not user:
-    print 'NOTE: Please run these tests only with a test account.'
-    user = raw_input('Please enter your username: ')
-  while not pw:
-    pw = getpass.getpass()
-    if not pw:
-      print 'Password cannot be blank.'
-
-  try:
-    pub = DocsPublisher(user, pw)
-  except gdata.service.BadAuthentication:
-    print 'Invalid user credentials given.'
-    return
-
-  out = open("docs.json", "w")
-  out.write(pub.publish_docs())
-  out.close()
-
-if __name__ == '__main__':
-  main()
