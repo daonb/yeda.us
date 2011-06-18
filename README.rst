@@ -1,7 +1,24 @@
-:License:   BSD
-:Copyright: the public knowledge workshop
+:License:   BSD_
+:Copyright: `The Public Knowledge Workshop`_
 
-The home of the public knowledge workshop
-=========================================
+.. _`The Public Knowledge Workshop`: http://yeda.us
+.. _BSD: LICENSE.txt
 
+Knowledge Publishing System
+===========================
+
+This repository holds the code and templates used to publish documents to the web. 
+Currently supporting google docs as the document store, the code fetches documents from google and
+translates them to a list of json dictionaries. 
+
+Install
+-------
+
+* git clone https://daonb@github.com/hasadna/yeda.us.git
+* sudo easy_install gdocs
+
+Activation
+----------
+
+* python kps.py
 
