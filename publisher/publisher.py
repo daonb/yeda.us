@@ -70,34 +70,41 @@ class DocsPublisher(object):
         self.docs[i['resource_id']] = i
     self.updated = False
 
-  def _ParseFeed(self, feed, context):
+  def _ParseFeed(self, feed, context={}):
     """Prints out the contents of a feed to the console.
 
     Args:
       feed: A gdata.docs.DocumentListFeed instance.
     """
     for entry in feed.entry:
+        categories = map(lambda x: x.label, entry.category)
+        if 'starred' not in categories:
+            continue
+
         up = entry.updated.text
         i = entry.resourceId.text
-        categories = map(lambda x: x.label, entry.category)
+        doc_type = entry.GetDocumentType()
 
         try:
             old = self.docs[i]
         except KeyError:
             old = None
 
-        if 'starred' in categories and (not old or up > old['updated']):
+        if doc_type=='folder':
+            print '*** updating: %s' % entry.resourceId.text
+            self.update_docs(entry.title.text)
+
+        elif 'starred' in categories and (not old or up > old['updated']):
             doc = context.copy()
             doc['authors'] = map(lambda x: x.name.text, entry.author)
             doc['resource_id'] = entry.resourceId.text
-            doc['type'] = entry.GetDocumentType()
+            doc['type'] = doc_type
             doc['title'] = entry.title.text.decode('utf8')
             doc['slug'] = slugify(doc['title'])
             doc['updated'] = entry.updated.text
             del categories[categories.index('starred')]
-            doc['categoreis'] = categories
-            print '%(title)s: %(slug)s %(resource_id)s' % doc
-            if doc['type']=='document':
+            doc['categories'] = categories
+            if doc_type in ['presentation', 'document']:
                 self.gd_client.Export(entry, "temp.html")
             else:
                 docs_token = self.gd_client.GetClientLoginToken()
@@ -109,23 +116,18 @@ class DocsPublisher(object):
             f.close()
             self.docs[i] = doc
             self.updated = True
+            print '*** updated: %(title)s: %(slug)s %(resource_id)s' % doc
+        else:
+            print '*** skipeed: %s' % entry.resourceId.text
 
   def update_docs(self, folder=ROOT_FOLDER):
     """Retrieves and displays a list of documents based on the user's choice."""
     print 'Retrieve documents and spreadsheets from %s' % folder
 
-    query = gdata.docs.service.DocumentQuery(categories=['folder'], params={'showfolders': 'true'})
+    query = gdata.docs.service.DocumentQuery(params={'showfolders': 'true'})
     query.AddNamedFolder(OWNER_EMAIL, folder)
     feed = self.gd_client.Query(query.ToUri())
-    for entry in feed.entry:
-        folder_name = entry.title.text
-        print "*** %s:" % folder_name
-        for cat in ['starred']: #['document', 'spreadsheet']:
-            query = gdata.docs.service.DocumentQuery() #categories=[cat, ],)
-            query.AddNamedFolder(OWNER_EMAIL, folder_name)
-            feed = self.gd_client.Query(query.ToUri())
-            path = '%s/%s' % (folder, folder_name)
-            self._ParseFeed(feed, {'path':path.decode('utf8')})
+    self._ParseFeed(feed)
 
   def to_json(self):
       return json.dumps(self.docs.values())
