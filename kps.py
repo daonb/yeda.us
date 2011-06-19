@@ -64,9 +64,12 @@ def main():
     print 'Invalid user credentials given.'
     return
 
-  f = open("var/docs.json", "w")
-  f.write(pub.publish_docs())
-  f.close()
+  pub.update_docs()
+  if pub.updated:
+      print 'updating output file...'
+      f = open("var/docs.json", "w")
+      f.write(pub.to_json())
+      f.close()
 
 if __name__ == '__main__':
   main()

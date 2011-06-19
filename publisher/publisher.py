@@ -68,6 +68,7 @@ class DocsPublisher(object):
     self.docs = {}
     for i in old:
         self.docs[i['resource_id']] = i
+    self.updated = False
 
   def _ParseFeed(self, feed, context):
     """Prints out the contents of a feed to the console.
@@ -93,8 +94,9 @@ class DocsPublisher(object):
             doc['title'] = entry.title.text.decode('utf8')
             doc['slug'] = slugify(doc['title'])
             doc['updated'] = entry.updated.text
+            del categories[categories.index('starred')]
             doc['categoreis'] = categories
-            print doc['resource_id']
+            print '%(title)s: %(slug)s %(resource_id)s' % doc
             if doc['type']=='document':
                 self.gd_client.Export(entry, "temp.html")
             else:
@@ -106,8 +108,9 @@ class DocsPublisher(object):
             doc['html'] = re.search('<body.*?>(.*)</body>', f.read(), re.DOTALL).group(1).decode('utf8')
             f.close()
             self.docs[i] = doc
+            self.updated = True
 
-  def publish_docs(self, folder=ROOT_FOLDER):
+  def update_docs(self, folder=ROOT_FOLDER):
     """Retrieves and displays a list of documents based on the user's choice."""
     print 'Retrieve documents and spreadsheets from %s' % folder
 
@@ -123,4 +126,6 @@ class DocsPublisher(object):
             feed = self.gd_client.Query(query.ToUri())
             path = '%s/%s' % (folder, folder_name)
             self._ParseFeed(feed, {'path':path.decode('utf8')})
-    return json.dumps(self.docs)
+
+  def to_json(self):
+      return json.dumps(self.docs.values())

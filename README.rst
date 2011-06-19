@@ -22,3 +22,7 @@ Activation
 
 * python kps.py
 
+Output
+------
+
+After running the script files under var/ will be updated as needed
