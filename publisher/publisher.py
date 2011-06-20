@@ -92,7 +92,7 @@ class DocsPublisher(object):
 
         if doc_type=='folder':
             print '*** updating: %s' % entry.resourceId.text
-            self.update_docs(entry.title.text)
+            self.update_docs(entry.title.text, entry.author[0].email.text)
 
         elif 'starred' in categories and (not old or up > old['updated']):
             doc = context.copy()
@@ -104,13 +104,16 @@ class DocsPublisher(object):
             doc['updated'] = entry.updated.text
             del categories[categories.index('starred')]
             doc['categories'] = categories
-            if doc_type in ['presentation', 'document']:
-                self.gd_client.Export(entry, "temp.html")
-            else:
-                docs_token = self.gd_client.GetClientLoginToken()
-                self.gd_client.SetClientLoginToken(self.gs_client.GetClientLoginToken())
-                self.gd_client.Export(entry, "temp.html", gid=0)
-                self.gd_client.SetClientLoginToken(docs_token)
+            try:
+                if doc_type == 'spreadsheet':
+                    docs_token = self.gd_client.GetClientLoginToken()
+                    self.gd_client.SetClientLoginToken(self.gs_client.GetClientLoginToken())
+                    self.gd_client.Export(entry, "temp.html", gid=0)
+                    self.gd_client.SetClientLoginToken(docs_token)
+                else:
+                    self.gd_client.Export(entry, "temp.html")
+            except gdata.service.Error:
+                print '*** failed: %(title)s: %(slug)s %(resource_id)s' % doc
             f = open("temp.html", "r")
             doc['html'] = re.search('<body.*?>(.*)</body>', f.read(), re.DOTALL).group(1).decode('utf8')
             f.close()
@@ -120,12 +123,12 @@ class DocsPublisher(object):
         else:
             print '*** skipeed: %s' % entry.resourceId.text
 
-  def update_docs(self, folder=ROOT_FOLDER):
+  def update_docs(self, folder=ROOT_FOLDER, owner=OWNER_EMAIL):
     """Retrieves and displays a list of documents based on the user's choice."""
     print 'Retrieve documents and spreadsheets from %s' % folder
 
     query = gdata.docs.service.DocumentQuery(params={'showfolders': 'true'})
-    query.AddNamedFolder(OWNER_EMAIL, folder)
+    query.AddNamedFolder(owner, folder)
     feed = self.gd_client.Query(query.ToUri())
     self._ParseFeed(feed)
 
