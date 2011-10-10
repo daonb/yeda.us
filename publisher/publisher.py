@@ -1,7 +1,7 @@
 #*-encoding:utf8-*
 #!/usr/bin/python
 #
-# Copyright (C) 2007, 2009 Google Inc.
+# Copyright (C) 2007, 2009 Google Inc., 2011 The public Knowledge Workshop
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,13 +41,12 @@ def truncate(content, length=15, suffix='...'):
 
 
 class DocsPublisher(object):
-  """A DocsSample object demonstrates the Document List feed."""
 
   def __init__(self, email, password, old):
     """Constructor for the DocsSample object.
 
     Takes an email and password corresponding to a gmail account to
-    demonstrate the functionality of the Document List feed.
+    publish the public, starred docs for the uder
 
     Args:
       email: [string] The e-mail address of the account to use for the sample.
@@ -58,7 +57,7 @@ class DocsPublisher(object):
       A DocsSample object used to run the sample demonstrating the
       functionality of the Document List feed.
     """
-    source = 'Document List Python Sample'
+    source = 'Document Puublisher'
     self.gd_client = gdata.docs.service.DocsService()
     self.gd_client.ClientLogin(email, password, source=source)
 
@@ -70,17 +69,13 @@ class DocsPublisher(object):
         self.docs[i['resource_id']] = i
     self.updated = False
 
-  def _ParseFeed(self, feed, context={}):
+  def _ParseFeed(self, feed, collection):
     """Prints out the contents of a feed to the console.
 
     Args:
       feed: A gdata.docs.DocumentListFeed instance.
     """
     for entry in feed.entry:
-        categories = map(lambda x: x.label, entry.category)
-        if 'starred' not in categories:
-            continue
-
         up = entry.updated.text
         i = entry.resourceId.text
         doc_type = entry.GetDocumentType()
@@ -90,31 +85,35 @@ class DocsPublisher(object):
         except KeyError:
             old = None
 
-        if doc_type=='folder':
-            print '*** updating: %s' % entry.resourceId.text
+        if doc_type == 'folder':
+            print '*** updating: %s' % entry.title.text
             self.update_docs(entry.title.text, entry.author[0].email.text)
 
-        elif 'starred' in categories and (not old or up > old['updated']):
-            doc = context.copy()
+        elif not old or up > old['updated']:
+            doc = {}
+
+            doc['collection'] = collection
             doc['authors'] = map(lambda x: x.name.text, entry.author)
             doc['resource_id'] = entry.resourceId.text
             doc['type'] = doc_type
             doc['title'] = entry.title.text.decode('utf8')
             doc['slug'] = slugify(doc['title'])
-            doc['updated'] = entry.updated.text
+            doc['updated'] = up
+            categories = map(lambda x: x.label, entry.category)
             del categories[categories.index('starred')]
             doc['categories'] = categories
             try:
                 if doc_type == 'spreadsheet':
                     docs_token = self.gd_client.GetClientLoginToken()
                     self.gd_client.SetClientLoginToken(self.gs_client.GetClientLoginToken())
-                    self.gd_client.Export(entry, "temp.html", gid=0)
+                    self.gd_client.Export(entry, "/tmp/docs_publisher.html", gid=0)
                     self.gd_client.SetClientLoginToken(docs_token)
                 else:
                     self.gd_client.Export(entry, "temp.html")
             except gdata.service.Error:
                 print '*** failed: %(title)s: %(slug)s %(resource_id)s' % doc
-            f = open("temp.html", "r")
+                continue
+            f = open("/tmp/docs_publisher.html", "r")
             doc['html'] = re.search('<body.*?>(.*)</body>', f.read(), re.DOTALL).group(1).decode('utf8')
             f.close()
             self.docs[i] = doc
@@ -127,10 +126,10 @@ class DocsPublisher(object):
     """Retrieves and displays a list of documents based on the user's choice."""
     print 'Retrieve documents and spreadsheets from %s' % folder
 
-    query = gdata.docs.service.DocumentQuery(params={'showfolders': 'true'})
+    query = gdata.docs.service.DocumentQuery(categories=['starred'], params={'showfolders': 'true'})
     query.AddNamedFolder(owner, folder)
     feed = self.gd_client.Query(query.ToUri())
-    self._ParseFeed(feed)
+    self._ParseFeed(feed, folder)
 
   def to_json(self):
       return json.dumps(self.docs.values())

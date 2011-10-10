@@ -17,7 +17,7 @@ import getpass
 import gdata.docs.service
 import gdata.spreadsheet.service
 
-from publisher.slugify_hebrew import slugify
+from slugify_hebrew import slugify
 from publisher import DocsPublisher
 
 def main():
@@ -39,7 +39,7 @@ def main():
       pw = arg
 
   while not user:
-    print 'NOTE: Please enter your goole account info'
+    print 'NOTE: Please enter your google account info'
     user = raw_input('Please enter your username: ')
   while not pw:
     pw = getpass.getpass()
