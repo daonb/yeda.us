@@ -13,15 +13,6 @@
   <script type="text/javascript"
    src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="js/logos.js"></script>
-  <script type="application/javascript">  
-    var r = 120;
-    var step = 0;
-    var ctx;
-    // draw the logo when dom is ready
-    $(function () {
-        $('#logo').hLogo();
-    })
-  </script>  
  </head>  
  <body>  
    <div style="color: #25407B; direction: rtl; width:90%; margin: 1em auto; text-align: center;">
@@ -137,5 +128,11 @@ new TWTR.Widget({
 		Thanks to <a title="jacobian" href="http://jacobian.org">Jacob Kaplan-Moss</a> for code and all the fish & to <a href="http://he.wikipedia.org/wiki/%D7%92%D7%95%D7%9C%D7%93%D7%A1%D7%98%D7%90%D7%A8">Goldstar</a> for beer-ing our sprints.
 	</div>
     </div>
+  <script type="application/javascript">  
+    // draw the logo when dom is ready
+    $(function () {
+        $('#logo').hLogo();
+    })
+  </script>  
  </body>  
 </html>  
