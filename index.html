@@ -12,7 +12,10 @@
 	</style>
   <script type="text/javascript"
    src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.history.js"></script>
   <script type="text/javascript" src="js/logos.js"></script>
+  <script type="text/javascript" src="js/mustache.js"></script>
+  <script type="text/javascript" src="js/publisher.js"></script>
  </head>  
  <body>  
    <div style="color: #25407B; direction: rtl; width:90%; margin: 1em auto; text-align: center;">
@@ -83,7 +86,15 @@ new TWTR.Widget({
       </p>
 		</div>
     <div id="docs" style="float: left;width: 240px; height:300px; margin-right: 10px;">
-    <!-- placeholder for the published docs -->
+    <!-- placeholder for the published docs and their templates -->
+        <script type="text/html" id="doc_table_template">
+            <table>
+                <tr><th>שם</th><th>אוסף</th></tr>
+                {{#docs}}
+                    <tr><td><a class="hash-click" href="docs/#{{slug}}">{{title}}</a></td><td>{{collection}}</td>
+                {{/docs}}
+            </table>
+        </script>
     </div>
     </div>
     <h2 style="clear:both; padding-top:0.8em;">
@@ -130,9 +141,10 @@ new TWTR.Widget({
     </div>
   <script type="application/javascript">  
     // draw the logo when dom is ready
-    $(function () {
+    $(document).ready(function () {
         $('#logo').hLogo();
-    })
+        $.history.init(showContent);
+     })
   </script>  
  </body>  
 </html>  
