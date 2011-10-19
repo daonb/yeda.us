@@ -38,8 +38,9 @@
 הסדנא לידע ציבורי
 <span style="font-size:70%">(ע"ר)</span>
         </h1>
-    <div style="margin: 0 auto; width: 800px;">
-	   <div style="float: right; ">
+    <div style="margin:0 auth; width: 90%;">
+    <div id="right-in2" style="float:right; max-width: 65%;">
+	   <div id="twitter" style="float: right; ">
 <!-- twitter! -->
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 <script>
@@ -73,8 +74,8 @@ new TWTR.Widget({
 }).render().setUser('hasadna').start();
 </script>
      </div>
-	   <div style="float: right; position:relative;">
-       <canvas id="logo" width="300" height="240"></canvas>
+	   <div id="logo" style="float: right; position:relative;">
+       <canvas width="300" height="240"></canvas>
        <p id="rellinks"> 
         <a rel="me" title="Group" href="http://groups.google.com/group/hasadna11"><img alt="Group" src="media/img/icons/group.png" width="32" height="32"></a> 
         <a rel="me" title="Twitter" href="http://twitter.com/hasadna"><img alt="Twitter" src="media/img/icons/twitter.png" width="32" height="32"></a> 
@@ -85,18 +86,23 @@ new TWTR.Widget({
         <a rel="me" title="Facebook" href="http://www.facebook.com/pages/hsdn-lyd-zybwry/167171689966376"><img alt="Facebook" src="media/img/icons/facebook.jpg" width="32" height="32"></a> 
       </p>
 		</div>
-    <div id="docs" style="float: left;width: 240px; height:300px; margin-right: 10px;">
+    <div id="doc" style="display:none;">
+        <!-- placeholder for the doc -->
+    </div>
+</div>
+<div id="docs" style="float: left; width: 30%;font-size:80%;">
     <!-- placeholder for the published docs and their templates -->
-        <script type="text/html" id="doc_table_template">
-            <table>
-                <tr><th>שם</th><th>אוסף</th></tr>
-                {{#docs}}
-                    <tr><td><a class="hash-click" href="docs/#{{slug}}">{{title}}</a></td><td>{{collection}}</td>
-                {{/docs}}
-            </table>
-        </script>
-    </div>
-    </div>
+    <h3>המסמכים שלנו</h3>
+    <script type="text/html" id="doc_table_template">
+            <tr><th>שם</th><th>אוסף</th></tr>
+            {{#docs}}
+                <tr><td><a class="hash-click" href="docs/#{{slug}}">{{title}}</a></td><td>{{collection}}</td>
+            {{/docs}}
+    </script>
+    <table>
+    </table>
+</div>
+</div>
     <h2 style="clear:both; padding-top:0.8em;">
 לא יהיה נצחון של האור על החושך כל עוד לא נעמוד על האמת הפשוטה, שבמקום להילחם בחושך, עלינו להגביר את האור.
       <span style="font-size:14px;">
@@ -142,8 +148,8 @@ new TWTR.Widget({
   <script type="application/javascript">  
     // draw the logo when dom is ready
     $(document).ready(function () {
-        $('#logo').hLogo();
-        $.history.init(showContent);
+        $('#logo>canvas').hLogo();
+        $.history.init(Publisher.showContent);
      })
   </script>  
  </body>  
