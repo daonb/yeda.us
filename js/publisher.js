@@ -20,7 +20,7 @@ function showContent(hash) {
         }, 'json')
     } else {
         // restore the state from hash
-        for (int i=0; i<len(docs); i++) {
+        // for (int i=0; i<len(docs); i++) {
             
     }
 }
