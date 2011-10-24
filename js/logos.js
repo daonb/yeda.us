@@ -1,7 +1,7 @@
 (function ($) {
     $.fn.hLogo = function () {
         var ctx = this[0].getContext('2d');
-        var r = 120;
+        var r = this.width()/2;
         var step = 0;
         var edge = Math.PI/13;  /* size of half a typical's line edge in radians */
         var base = edge*3;      /* size of half of the base in radians */
@@ -9,7 +9,7 @@
 
         /* move our center to the circle's center */
         ctx.save();
-        ctx.translate(150,120);
+        ctx.translate(r,r);
         /* by using rotate, we can keep working around angle 0 */
         ctx.rotate(Math.PI/2+step);
         /* basic setup, line and fill color and line width */
