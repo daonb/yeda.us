@@ -109,7 +109,7 @@ class DocsPublisher(object):
                     self.gd_client.Export(entry, "/tmp/docs_publisher.html", gid=0)
                     self.gd_client.SetClientLoginToken(docs_token)
                 else:
-                    self.gd_client.Export(entry, "temp.html")
+                    self.gd_client.Export(entry, "/tmp/docs_publisher.html")
             except gdata.service.Error:
                 print '*** failed: %(title)s: %(slug)s %(resource_id)s' % doc
                 continue

@@ -10,6 +10,7 @@
     p#rellinks a img { opacity: 0.6; }
 		canvas#logo:hover { cursor: pointer}
         td { text-align: right;}
+	tr {padding: 0.5em 0; border:1px solid #eee; background:#fff}
 	</style>
   <script type="text/javascript"
    src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
@@ -35,8 +36,8 @@
   </div>
 	<div style="clear: both;"></div>
 		
-    <div style="margin:0 auth; width: 90%;">
-	<div id="twitter" style="float: left; border:1px solid;">
+    <div style="margin:0 auto; width: 90%;">
+	<div id="twitter" style="float: left;">
 <!-- twitter! -->
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 <script>
@@ -70,8 +71,8 @@ new TWTR.Widget({
 }).render().setUser('hasadna').start();
 </script>
      </div>
-    <div id="right-in2" style="float:right; width: 30%; margin-left:2%">
-	   <div id="logo" style="border: 1px solid;padding-top:1em;">
+    <div id="right-in2" style="float:right; width: 28%; margin-left:4%; padding:2%; border-left:1px solid #eeeeee; background: #fafafa; border-radius: 0.5em;">
+	   <div id="logo" style="padding-top:1em;">
        <a href="index.html"><canvas width="150" height="150"></canvas></a>
        <p id="rellinks"> 
         <a rel="me" title="Group" href="http://groups.google.com/group/hasadna11"><img alt="Group" src="media/img/icons/group.png" width="32" height="32"></a> 
@@ -83,9 +84,9 @@ new TWTR.Widget({
         <a rel="me" title="Facebook" href="http://www.facebook.com/pages/hsdn-lyd-zybwry/167171689966376"><img alt="Facebook" src="media/img/icons/facebook.jpg" width="32" height="32"></a> 
       </p>
 	</div>
-    <div id="docs" style="border: 1px solid; margin-top:2em;">
+    <div id="docs" style="overflow:hidden;">
         <!-- placeholder for the published docs and their templates -->
-        <h3>המסמכים שלנו</h3>
+        <h3 style="margin-top:0">המסמכים שלנו</h3>
         <script type="text/html" id="doc_table_template">
                 <tr><th>שם</th><th>אוסף</th></tr>
                 {{#docs}}
@@ -100,48 +101,6 @@ new TWTR.Widget({
     <!-- placeholder for the doc -->
 </div>
 </div>
-    <h2 style="clear:both; padding-top:0.8em;">
-לא יהיה נצחון של האור על החושך כל עוד לא נעמוד על האמת הפשוטה, שבמקום להילחם בחושך, עלינו להגביר את האור.
-      <span style="font-size:14px;">
-        <a rel="vision" title="ADG" href="http://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%93%D7%95%D7%93_%D7%92%D7%95%D7%A8%D7%93%D7%95%D7%9F">(א.ד. גורדון)</a>
-      </span>
-    </h2>
-    <p>
-    </p>
-    <!-- Start of Flickr Badge -->
-    <style type="text/css">
-      #flickr_badge_source_txt {padding:0; font: 11px Arial, Helvetica, Sans serif; color:#25407B;}
-      #flickr_badge_icon {display:block !important; margin:0 !important; border: 1px solid rgb(0, 0, 0) !important;}
-      #flickr_icon_td {padding:0 5px 0 0 !important;}
-      .flickr_badge_image {text-align:center !important;}
-      .flickr_badge_image img {border: 1px solid black !important;}
-      #flickr_www {display:block; text-align:left; padding:0 10px 0 10px !important; font: 11px Arial, Helvetica, Sans serif !important; color:#3993ff !important;}
-      #flickr_badge_uber_wrapper a:hover,
-      #flickr_badge_uber_wrapper a:link,
-      #flickr_badge_uber_wrapper a:active,
-      #flickr_badge_uber_wrapper a:visited {text-decoration:none !important; background:inherit !important;color:#079BEC;}
-      #flickr_badge_wrapper {background-color:#ffffff;border: solid 1px #ffffff}
-      #flickr_badge_source {padding:0 !important; font: 11px Arial, Helvetica, Sans serif !important; color:#25407B !important;}
-    </style>
-    <table id="flickr_badge_uber_wrapper" cellpadding="0" cellspacing="10" border="0"><tr><td><a href="http://www.flickr.com" id="flickr_www">www.<strong style="color:#3993ff">flick<span style="color:#ff1c92">r</span></strong>.com</a><table cellpadding="0" cellspacing="10" border="0" id="flickr_badge_wrapper">
-            <tr>
-              <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&count=8&display=latest&size=t&layout=h&context=in%2Fpool-1617630%40N24%2F&source=group&group=1617630%40N24"></script>
-              <td id="flickr_badge_source" valign="center" align="center">
-                <table cellpadding="0" cellspacing="0" border="0"><tr>
-                    <td width="10" id="flickr_icon_td"><a href="http://www.flickr.com/groups/1617630@N24/pool/"><img id="flickr_badge_icon" alt="items in yeda.us" src="http://l.yimg.com/g/images/buddyicon.jpg#1617630@N24" align="left" width="48" height="48"></a></td>
-                    <td id="flickr_badge_source_txt">More <a href="http://www.flickr.com/groups/1617630@N24/pool/">in yeda.us pool</a></td>
-                </tr></table>
-              </td>
-            </tr>
-          </table>
-    </td></tr></table>
-    <!-- End of Flickr Badge -->
-
-	<div style="clear:both; float:left; direction:ltr;">
-
-		Thanks to <a title="jacobian" href="http://jacobian.org">Jacob Kaplan-Moss</a> for code and all the fish & to <a href="http://he.wikipedia.org/wiki/%D7%92%D7%95%D7%9C%D7%93%D7%A1%D7%98%D7%90%D7%A8">Goldstar</a> for beer-ing our sprints.
-	</div>
-    </div>
   <script type="application/javascript">  
     // draw the logo when dom is ready
     $(document).ready(function () {
