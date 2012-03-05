@@ -11,33 +11,56 @@
 		canvas#logo:hover { cursor: pointer}
         td { text-align: right;}
 	tr {padding: 0.5em 0; border:1px solid #eee; background:#fff}
+    .dest-item {margin: 0.5em; padding:0.5em; 
+        -webkit-border-top-left-radius: 1em; 
+        -moz-border-radius-topleft: 1em;
+        border-top-left-radius: 1em;
+        background:#e0e0e0;};
+    .dest-item img {width:200px;height:200px; }
+    .dest-item a { color:#101010; }
+    #twitter {width:250px; height:350px;}
+
 	</style>
-  <script type="text/javascript"
-   src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery.history.js"></script>
-  <script type="text/javascript" src="js/logos.js"></script>
-  <script type="text/javascript" src="js/mustache.js"></script>
-  <script type="text/javascript" src="js/publisher.js"></script>
+   <link href="http://yeda.us/byright/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
+   <link href="http://yeda.us/byright/bootstrap/css/bootstrap-responsive-rtl.css" rel="stylesheet">
+   <link href="css/isotope.css" rel="stylesheet">
  </head>  
  <body>  
-   <div style="color: #25407B; direction: rtl; width:90%; margin: 1em auto; text-align: center;">
-	<p style="float:right; margin:0;">
-אתרים בפיתוח: 
-		<a href="http://oknesset.org">כנסת פתוחה</a>&nbsp;
-		<a href="http://budget.yeda.us">תקציב המדינה</a>
-	</p>
-	<div style="float:left; margin:0;">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
-            <input type="hidden" name="cmd" value="_s-xclick"> 
-            <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
-            <input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/IL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - הדרך הקלה והבטוחה לשלם באופן מקוון!"> 
-            <img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/i/scr/pixel.gif" width="1" height="1"> 
-        </form> 
-  </div>
-	<div style="clear: both;"></div>
-		
-    <div style="margin:0 auto; width: 90%;">
-	<div id="twitter" style="float: left;">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#">משולחנה של הסדנא לידע ציבורי</a>
+            <ul class="nav pull-right">
+              <li>
+                <a rel="me" title="Group" href="http://groups.google.com/group/hasadna11"><img alt="Group" src="media/img/icons/group.png" width="32" height="32"></a> 
+              </li>
+              <li>
+                <a rel="me" title="Twitter" href="http://twitter.com/hasadna"><img alt="Twitter" src="media/img/icons/twitter.png" width="32" height="32"></a> 
+              </li>
+              <li>
+                <a rel="me" title="Blog" href="http://blog.yeda.us"><img alt="Blog" src="media/img/icons/blog.png" width="32" height="32"></a> 
+              </li>
+              <li>
+                <a rel="me" title="Github" href="http://github.com/hasadna"><img alt="Github" src="media/img/icons/github.png" width="32" height="32"></a> 
+              </li>
+              <li>
+                <a rel="me" title="Delicious" href="http://delicious.com/hasadna"><img alt="Delicious" src="media/img/icons/delicious.png" width="32" height="32"></a> 
+              <li>
+                <a rel="me" title="Redmine" href="https://track.nsa.co.il/projects/hasadna"><img alt="Redmine" src="media/img/icons/redmine.ico" width="32" height="32"></a> 
+              </li>
+              <li>
+                <a rel="me" title="Facebook" href="http://www.facebook.com/pages/hsdn-lyd-zybwry/167171689966376"><img alt="Facebook" src="media/img/icons/facebook.jpg" width="32" height="32"></a> 
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    <div class="row-fluid">
+<br><br>
+        <div class="span12">
+        <div id="destinations">
+            <div id="twitter" class="dest-item">
 <!-- twitter! -->
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 <script>
@@ -70,18 +93,44 @@ new TWTR.Widget({
   }
 }).render().setUser('hasadna').start();
 </script>
-     </div>
+            </div>
+            <div class="dest-item">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
+            <input type="hidden" name="cmd" value="_s-xclick"> 
+            <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
+            <input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/IL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - הדרך הקלה והבטוחה לשלם באופן מקוון!"> 
+            <img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/i/scr/pixel.gif" width="1" height="1"> 
+        </form> 
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+	<p style="float:right; margin:0;">
+אתרים בפיתוח: 
+		<a href="http://oknesset.org">כנסת פתוחה</a>&nbsp;
+		<a href="http://budget.yeda.us">תקציב המדינה</a>
+	</p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
+            <input type="hidden" name="cmd" value="_s-xclick"> 
+            <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
+            <input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/IL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - הדרך הקלה והבטוחה לשלם באופן מקוון!"> 
+            <img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/i/scr/pixel.gif" width="1" height="1"> 
+        </form> 
+	<div style="clear: both;"></div>
+		
+    <div style="margin:0 auto; width: 90%;">
     <div id="right-in2" style="float:right; width: 28%; margin-left:4%; padding:2%; border-left:1px solid #eeeeee; background: #fafafa; border-radius: 0.5em;">
 	   <div id="logo" style="padding-top:1em;">
        <a href="index.html"><canvas width="150" height="150"></canvas></a>
        <p id="rellinks"> 
-        <a rel="me" title="Group" href="http://groups.google.com/group/hasadna11"><img alt="Group" src="media/img/icons/group.png" width="32" height="32"></a> 
-        <a rel="me" title="Twitter" href="http://twitter.com/hasadna"><img alt="Twitter" src="media/img/icons/twitter.png" width="32" height="32"></a> 
-        <a rel="me" title="Blog" href="http://blog.yeda.us"><img alt="Blog" src="media/img/icons/blog.png" width="32" height="32"></a> 
-        <a rel="me" title="Github" href="http://github.com/hasadna"><img alt="Github" src="media/img/icons/github.png" width="32" height="32"></a> 
-        <a rel="me" title="Delicious" href="http://delicious.com/hasadna"><img alt="Delicious" src="media/img/icons/delicious.png" width="32" height="32"></a> 
-        <a rel="me" title="Redmine" href="https://track.nsa.co.il/projects/hasadna"><img alt="Redmine" src="media/img/icons/redmine.ico" width="32" height="32"></a> 
-        <a rel="me" title="Facebook" href="http://www.facebook.com/pages/hsdn-lyd-zybwry/167171689966376"><img alt="Facebook" src="media/img/icons/facebook.jpg" width="32" height="32"></a> 
       </p>
 	</div>
     <div id="docs" style="overflow:hidden;">
@@ -101,12 +150,45 @@ new TWTR.Widget({
     <!-- placeholder for the doc -->
 </div>
 </div>
+  <script id="dest-template" type="text/html">
+    <a href="{{url}}" alt="{{name}}">
+        {{#logo_url}}
+            <img src="{{logo_url}}">
+        {{/logo_url}}
+        <h1> {{name}} </h1>
+    </a>
+  </script>
+  <script type="text/javascript"
+   src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/logos.js"></script>
+  <script type="text/javascript" src="js/mustache.js"></script>
+  <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
   <script type="application/javascript">  
-    // draw the logo when dom is ready
+    $.Isotope.prototype._positionAbs = function( x, y ) {
+      return { right: x, top: y };
+    };
     $(document).ready(function () {
+        var destTemplate = $('#dest-template').html();
         $('#logo canvas').hLogo();
-        // $.history.init(Publisher(jQuery, 'awdwth'));
-        Publisher(jQuery, 'awdwth');
+        $.getJSON ("http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?",
+            {include_docs: true},
+            function (data) {
+                for (var i=0; i<data.rows.length; i++) {
+                    var doc = data.rows[i].doc;
+                    var item = $(document.createElement('div')).
+                        addClass("dest-item").
+                        width(doc.width | 250).
+                        height(doc.height | 250).
+                        html(Mustache.render(destTemplate, doc));
+                    $('#destinations').append(item);
+                }
+                $('#destinations').isotope({
+                    itemSelector: '.dest-item',
+                    transformsEnabled: false,
+                    masonary: {columnWidth: 250}
+                });
+            }
+        )
      })
   </script>  
  </body>  
