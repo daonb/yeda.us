@@ -11,7 +11,7 @@
 		canvas#logo:hover { cursor: pointer}
         td { text-align: right;}
 	tr {padding: 0.5em 0; border:1px solid #eee; background:#fff}
-    .dest-item {margin: 0.5em; padding:0.5em; 
+    .dest-item {margin: 0.5em; padding:0.5em; text-align:center;
         -webkit-border-top-left-radius: 1em; 
         -moz-border-radius-topleft: 1em;
         border-top-left-radius: 1em;
@@ -106,56 +106,15 @@ new TWTR.Widget({
       </div>
     </div>
     </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-	<p style="float:right; margin:0;">
-אתרים בפיתוח: 
-		<a href="http://oknesset.org">כנסת פתוחה</a>&nbsp;
-		<a href="http://budget.yeda.us">תקציב המדינה</a>
-	</p>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
-            <input type="hidden" name="cmd" value="_s-xclick"> 
-            <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
-            <input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/IL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - הדרך הקלה והבטוחה לשלם באופן מקוון!"> 
-            <img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/i/scr/pixel.gif" width="1" height="1"> 
-        </form> 
-	<div style="clear: both;"></div>
-		
-    <div style="margin:0 auto; width: 90%;">
-    <div id="right-in2" style="float:right; width: 28%; margin-left:4%; padding:2%; border-left:1px solid #eeeeee; background: #fafafa; border-radius: 0.5em;">
-	   <div id="logo" style="padding-top:1em;">
-       <a href="index.html"><canvas width="150" height="150"></canvas></a>
-       <p id="rellinks"> 
-      </p>
-	</div>
-    <div id="docs" style="overflow:hidden;">
-        <!-- placeholder for the published docs and their templates -->
-        <h3 style="margin-top:0">המסמכים שלנו</h3>
-        <script type="text/html" id="doc_table_template">
-                <tr><th>שם</th><th>אוסף</th></tr>
-                {{#docs}}
-                    <tr><td><a class="hash-click" href="docs/#{{slug}}">{{title}}</a></td><td>{{collection}}</td>
-                {{/docs}}
-        </script>
-        <table>
-        </table>
-    </div>
-</div>
-<div id="doc" style="display:none; text-align:right">
-    <!-- placeholder for the doc -->
-</div>
-</div>
   <script id="dest-template" type="text/html">
     <a href="{{url}}" alt="{{name}}">
+        {{#html}}
+            {{{html}}}
+        {{/html}}
         {{#logo_url}}
             <img src="{{logo_url}}">
         {{/logo_url}}
-        <h1> {{name}} </h1>
+        <strong> {{name}} </strong>
     </a>
   </script>
   <script type="text/javascript"
@@ -169,7 +128,6 @@ new TWTR.Widget({
     };
     $(document).ready(function () {
         var destTemplate = $('#dest-template').html();
-        $('#logo canvas').hLogo();
         $.getJSON ("http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?",
             {include_docs: true},
             function (data) {
@@ -177,15 +135,17 @@ new TWTR.Widget({
                     var doc = data.rows[i].doc;
                     var item = $(document.createElement('div')).
                         addClass("dest-item").
-                        width(doc.width | 250).
-                        height(doc.height | 250).
+                        width((doc.width)?doc.width:250).
+                        height((doc.height)?doc.height:200).
                         html(Mustache.render(destTemplate, doc));
                     $('#destinations').append(item);
                 }
+                $('#logo canvas').hLogo();
                 $('#destinations').isotope({
                     itemSelector: '.dest-item',
                     transformsEnabled: false,
-                    masonary: {columnWidth: 250}
+                    masonary: {columnWidth: 100},
+                    sortBy: 'random'
                 });
             }
         )
