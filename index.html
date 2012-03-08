@@ -5,13 +5,9 @@
 	<title>הסדנא לידע ציבורי</title>
 <link rel='shortcut icon' href='http://blog.yeda.us/wp-content/themes/p2/favicon.ico'> 
 	<style>
-		p#rellinks { width:100%; text-align: center;}
-    p#rellinks a:hover img { opacity: 1.0; }
-    p#rellinks a img { opacity: 0.6; }
-		canvas#logo:hover { cursor: pointer}
-        td { text-align: right;}
-	tr {padding: 0.5em 0; border:1px solid #eee; background:#fff}
-    .dest-item {margin: 0.5em; padding:0.5em; text-align:center;
+		#logo { text-align: center}
+		#logo:hover { cursor: pointer}
+    .dest-item {margin: 0.5em; padding:0.5em;
         -webkit-border-top-left-radius: 1em; 
         -moz-border-radius-topleft: 1em;
         border-top-left-radius: 1em;
@@ -21,9 +17,9 @@
     #twitter {width:250px; height:350px;}
 
 	</style>
+   <link href="css/isotope.css" rel="stylesheet">
    <link href="http://yeda.us/byright/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
    <link href="http://yeda.us/byright/bootstrap/css/bootstrap-responsive-rtl.css" rel="stylesheet">
-   <link href="css/isotope.css" rel="stylesheet">
  </head>  
  <body>  
     <div class="navbar navbar-fixed-top">
@@ -106,15 +102,26 @@ new TWTR.Widget({
       </div>
     </div>
     </div>
-  <script id="dest-template" type="text/html">
-    <a href="{{url}}" alt="{{title}}">
-        {{#html}}
-            {{{html}}}
-        {{/html}}
-        {{#logo_url}}
-            <img src="{{logo_url}}">
-        {{/logo_url}}
-        <strong> {{title}} </strong>
+  <script id="dest-link-template" type="text/html">
+    <div style="text-align: center;">
+        <div>
+        {{{html}}}
+        <a href="{{url}}" alt="{{title}}">
+            <strong> {{title}} </strong>
+        </a>
+    </div>
+  </script>
+  <script id="dest-doc-template" type="text/html">
+        <blockquote>
+            <a href="{{url}}" alt="{{title}}">
+                {{title}} 
+            </a>
+            <small>
+                {{#authors}} {{.}} {{/authors}}
+                <br/>
+                {{updated}}
+            </small>
+        </blockquote>
     </a>
   </script>
   <script type="text/javascript"
