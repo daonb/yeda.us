@@ -5,16 +5,19 @@
 	<title>הסדנא לידע ציבורי</title>
 <link rel='shortcut icon' href='http://blog.yeda.us/wp-content/themes/p2/favicon.ico'> 
 	<style>
-		#logo { text-align: center}
-		#logo:hover { cursor: pointer}
-    .dest-item {margin: 0.5em; padding:0.5em;
-        -webkit-border-top-left-radius: 1em; 
-        -moz-border-radius-topleft: 1em;
-        border-top-left-radius: 1em;
-        background:#e0e0e0;};
-    .dest-item img {width:200px;height:200px; }
-    .dest-item a { color:#101010; }
-    #twitter {width:250px; height:350px;}
+
+.item       {
+    margin: 0.5em; padding:0.5em;
+    -webkit-border-top-left-radius: 1em; 
+    -moz-border-radius-topleft: 1em;
+    border-top-left-radius: 1em;
+    background:#e0e0e0;
+}
+.item img   {width:200px; height:200px; }
+.item a     {color:#101010; }
+#twitter    {width:250px; height:350px; }
+#logo       {text-align: center; }
+#logo:hover {cursor: pointer; }
 
 	</style>
    <link href="css/isotope.css" rel="stylesheet">
@@ -55,8 +58,8 @@
     <div class="row-fluid">
 <br><br>
         <div class="span12">
-        <div id="destinations">
-            <div id="twitter" class="dest-item">
+        <div id="items">
+            <div id="twitter" class="item">
 <!-- twitter! -->
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 <script>
@@ -90,7 +93,7 @@ new TWTR.Widget({
 }).render().setUser('hasadna').start();
 </script>
             </div>
-            <div class="dest-item">
+            <div class="item">
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
             <input type="hidden" name="cmd" value="_s-xclick"> 
             <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
@@ -102,28 +105,47 @@ new TWTR.Widget({
       </div>
     </div>
     </div>
-  <script id="dest-link-template" type="text/html">
-    <div style="text-align: center;">
-        <div>
-        {{{html}}}
-        <a href="{{url}}" alt="{{title}}">
-            <strong> {{title}} </strong>
-        </a>
+    <div class="footer">
+        פותח על ידי החזית העממית לשחרור ידע ציבורי ובעזרת
+        bootstrap, isotope, couchdb, jQuery
     </div>
-  </script>
-  <script id="dest-doc-template" type="text/html">
-        <blockquote>
-            <a href="{{url}}" alt="{{title}}">
-                {{title}} 
-            </a>
-            <small>
-                {{#authors}} {{.}} {{/authors}}
-                <br/>
-                {{updated}}
-            </small>
-        </blockquote>
+    <script id="dest-link-template" type="text/html">
+<div style="text-align: center;">
+    <div>
+    {{{html}}}
+    <a href="{{url}}" alt="{{title}}">
+        <strong> {{title}} </strong>
     </a>
-  </script>
+</div>
+    </script>
+  
+    <script id="dest-doc-template" type="text/html">
+<blockquote>
+    <a href="{{url}}" alt="{{title}}">
+        {{title}} 
+    </a>
+    <small>
+        {{#authors}} {{.}} {{/authors}}
+        <br/>
+        {{updated}}
+    </small>
+</blockquote>
+    </script>
+
+    <script id="dest-doc-details-template" type="text/html">
+<h1>
+    <a href="{{url}}" alt="{{title}}">
+        {{title}} 
+    </a>
+    <small>
+        {{#authors}} {{.}} {{/authors}}
+        <br/>
+        {{updated}}
+    </small>
+</h1>
+{{{content_html}}}
+    </script>
+  
   <script type="text/javascript"
    src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="js/logos.js"></script>
