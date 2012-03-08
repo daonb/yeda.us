@@ -1,5 +1,5 @@
-// var ALL_DOCS_URL = "http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?";
-var allDocsUrl = "static/all_docs.json";
+var allDocsUrl = "http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?";
+// var allDocsUrl = "static/all_docs.json";
 var destDocTemplate = $('#dest-doc-template').html();
 var destDocDetailsTemplate = $('#dest-doc-details-template').html();
 var destLinkTemplate = $('#dest-link-template').html();
@@ -73,6 +73,7 @@ height((doc.height)?doc.height:"auto");
                     item.html(Mustache.render(destDocTemplate, doc));
                     $('#items').append(item);
                     // create an item-details div
+                    doc.url = "https://docs.google.com/document/d/"+doc._id.slice("document:".length);
                     $('#items').append($(document.createElement('div')).
 hide().
 addClass("item-details").
