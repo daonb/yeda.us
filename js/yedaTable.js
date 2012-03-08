@@ -26,6 +26,8 @@ function update_history(slug) {
 
 function clr() {
     $('.item:visible').fadeToggle(fadingMsec);
+    $('.item-details:visible').fadeToggle(fadingMsec);
+    window.scrollTo(0,0);
 }
 
 $.Isotope.prototype._positionAbs = function( x, y ) {
@@ -58,7 +60,7 @@ $(document).ready(function () {
                 var item = $(document.createElement('div')).
 // new item is brought to the table
 addClass("item").
-attr({"href": "/#"+doc._id,
+attr({"doc_id": "/#"+doc._id,
       "doc_updated": (doc.hasOwnProperty('updated'))?doc.updated:'unknown'
      }).
 width((doc.width)?doc.width:250).
@@ -69,17 +71,20 @@ height((doc.height)?doc.height:"auto");
                 if (docPrefix.indexOf(doc._id.substr(0,3)) != -1) {
                     // we've got a doc. let's render the thumb and 
                     item.html(Mustache.render(destDocTemplate, doc));
+                    $('#items').append(item);
                     // create an item-details div
-                    $(document.createElement('div')).
+                    $('#items').append($(document.createElement('div')).
+hide().
 addClass("item-details").
 attr({"doc_id": doc._id }).
-html(Mustache.render(destDocDetailsTemplate, doc));
+html(Mustache.render(destDocDetailsTemplate, doc))
+                    );
                 }
                 else {
                     // we've got a shallow div just give it a thumb
                     item.html(Mustache.render(destLinkTemplate, doc));
+                    $('#items').append(item);
                 }
-                $('#items').append(item);
 
             };
             // draw the logo and
