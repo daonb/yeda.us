@@ -133,16 +133,16 @@ new TWTR.Widget({
     </script>
 
     <script id="dest-doc-details-template" type="text/html">
-<h1>
+<div class="well" style="magin: 0 auto; width: 80%; display: hidden;">
     <a href="{{url}}" alt="{{title}}">
-        {{title}} 
+        <h1>{{title}}</h1>
     </a>
     <small>
         {{#authors}} {{.}} {{/authors}}
         <br/>
         {{updated}}
     </small>
-</h1>
+</div>
 {{{content_html}}}
     </script>
   

@@ -25,7 +25,7 @@ function update_history(slug) {
 }
 
 function clr() {
-    $('.items :visible').fadeToggle(fadingMsec);
+    $('.item:visible').fadeToggle(fadingMsec);
 }
 
 $.Isotope.prototype._positionAbs = function( x, y ) {
@@ -53,10 +53,12 @@ $(document).ready(function () {
             // got the data, time to create the divs...
             for (var i=0; i < data.rows.length; i++) {
                 var doc = data.rows[i].doc;
+                if (!doc.hasOwnProperty("url"))
+                    doc.url = "/#"+data.rows[i].id;
                 var item = $(document.createElement('div')).
 // new item is brought to the table
 addClass("item").
-attr({"doc_id": doc._id,
+attr({"href": "/#"+doc._id,
       "doc_updated": (doc.hasOwnProperty('updated'))?doc.updated:'unknown'
      }).
 width((doc.width)?doc.width:250).
@@ -97,5 +99,4 @@ html(Mustache.render(destDocDetailsTemplate, doc));
             });
         }
     )
- })
-
+});
