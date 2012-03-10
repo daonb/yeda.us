@@ -4,25 +4,28 @@
 .. _`The Public Knowledge Workshop`: http://yeda.us
 .. _BSD: LICENSE.txt
 
-Knowledge Publishing System
-===========================
+Our Knowoledge
+==============
 
 This repository holds the code and templates used to publish documents to the web. 
-Currently supporting google docs as the document store, the code fetches documents from google and
-translates them to a list of json dictionaries. 
+Currently supporting couchdb as the document store, the code fetches documents and
+displayed them nicely.
 
 Install
 -------
 
-* git clone https://daonb@github.com/hasadna/yeda.us.git
-* sudo easy_install gdocs
+::
+ 
+    $ git clone https://daonb@github.com/hasadna/yeda.us.git
 
 Activation
 ----------
 
-* python kps.py
+    $ python -m SimpleHTTPServer 8000
+    $ gnome-open http://localhost:8000 # or point your browser ther
 
-Output
-------
+Configuration
+-------------
 
-After running the script files under var/ will be updated as needed
+The display is based on a json file served by couchdb. To change the url of
+the file by changing the 1st line in js/yedaTable.js
