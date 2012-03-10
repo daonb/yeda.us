@@ -1,8 +1,9 @@
 var allDocsUrl = "http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?";
-// var allDocsUrl = "static/all_docs.json";
+//var allDocsUrl = "static/all_docs.json";
 var destDocTemplate = $('#dest-doc-template').html();
 var destDocDetailsTemplate = $('#dest-doc-details-template').html();
 var destLinkTemplate = $('#dest-link-template').html();
+var com1Template = $('#com1-template').html();
 var fadingMsec = 100;
 var docPrefix = ['doc', 'spr'];
 
@@ -25,8 +26,9 @@ function update_history(slug) {
 }
 
 function clr() {
-    $('.item:visible').fadeToggle(fadingMsec);
-    $('.item-details:visible').fadeToggle(fadingMsec);
+    $('#com1').html('');
+    $('.item:visible').hide();
+    $('.item-details:visible').hide();
     window.scrollTo(0,0);
 }
 
@@ -35,8 +37,10 @@ $.Isotope.prototype._positionAbs = function( x, y ) {
 };
 
 $(document).ready(function () {
-        function onhashchange() {
+        $('#com1').html(Mustache.render(com1Template, {payload: "בטעינה"})).show();
+        function move() {
             var slug = window.location.hash.slice(1);
+            update_history(slug);
             if (slug.length > 0) {
                 clr();
                 $('.item-details[doc_id|="'+slug+'"]"').fadeToggle(fadingMsec);
@@ -47,7 +51,7 @@ $(document).ready(function () {
             }
 
         }
-        window.onhashchange = onhashchange;
+        window.onhashchange = move;
 
         $.getJSON (allDocsUrl,
                    {include_docs: true},
@@ -94,14 +98,20 @@ html(Mustache.render(destDocDetailsTemplate, doc))
             $('#items').isotope({
                 itemSelector: '.item',
                 transformsEnabled: false,
-                masonry: {columnWidth: 100},
+                masonry: {columnWidth: 1},
                 getSortData : {
                     'updated' : function ( $elem ) {
                         return $elem.attr('doc_updated');
+                    },
+                    'title' : function ($elem) {
+                        return $elem.children('h1').html();
                     }
                 },
                 // sortAscending: false,
-                sortBy: 'updated'
+                onLayout: function ( $elems ) {
+                    $('#com1').html('');
+                },
+                sortBy: 'title'
             });
         }
     )

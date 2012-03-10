@@ -12,11 +12,9 @@
     border-top-left-radius: 1em;
     background:#e0e0e0;
 }
-.item img   {width:200px; height:200px; }
-.item a     {color:#101010; }
-#twitter    {width:250px; height:350px; }
-#logo       {text-align: center; }
-#logo:hover {cursor: pointer; }
+#twitter    {width:250px; }
+#logo       {text-align: center; width:200px;}
+#paypal     {width: 115px; height: 60px; }
 
 	</style>
    <link href="css/isotope.css" rel="stylesheet">
@@ -25,6 +23,7 @@
  </head>  
  <body>  
     <div class="navbar navbar-fixed-top">
+      <div id="com1" ></div>
       <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="#">משולחנה של הסדנא לידע ציבורי</a>
@@ -58,6 +57,14 @@
 <br><br>
         <div class="span12">
         <div id="items">
+            <div id="logo" class="item">
+                <a href="http://hasadna.org.il">
+                    <canvas width="150" height="150"></canvas>
+                    <p>
+                    <strong>הסדנא לידע ציבורי</strong><br/> (עמותה רשומה)<br/><strong>לדעת להשפיע</strong>
+                    </p>
+                </a>
+            </div>
             <div id="twitter" class="item">
 <!-- twitter! -->
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -92,22 +99,20 @@ new TWTR.Widget({
 }).render().setUser('hasadna').start();
 </script>
             </div>
-            <div class="item">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="container"><div class="footer">
+        פותח על ידי החזית העממית לשחרור ידע ציבורי ובעזרת
+        bootstrap, isotope, couchdb, jQuery, <a href="https://github.com/daonb/yeda.us">& github</a>
+        <form class="pull-right" action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick"> 
             <input type="hidden" name="hosted_button_id" value="K7X4FWYPBR7H4"> 
             <input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/IL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - הדרך הקלה והבטוחה לשלם באופן מקוון!"> 
             <img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/he_IL/i/scr/pixel.gif" width="1" height="1"> 
         </form> 
-            </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="footer">
-        פותח על ידי החזית העממית לשחרור ידע ציבורי ובעזרת
-        bootstrap, isotope, couchdb, jQuery
-    </div>
+    </div></div>
     <script id="dest-link-template" type="text/html">
 <div style="text-align: center;">
     <div>
@@ -142,6 +147,11 @@ new TWTR.Widget({
     </small>
 </div>
 {{{content_html}}}
+    </script>
+    <script type="text/html" id="com1-template">
+<div class="well" style="z-index:100; position:absolute; left:1em; top:1em;background-color: {{color}};">
+    <h3>{{payload}}</h3>
+</div>
     </script>
   
   <script type="text/javascript"
