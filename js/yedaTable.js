@@ -92,8 +92,6 @@ html(Mustache.render(destDocDetailsTemplate, doc))
                 }
 
             };
-            // draw the logo and
-            $('#logo canvas').hLogo();
             // update the grid
             $('#items').isotope({
                 itemSelector: '.item',
