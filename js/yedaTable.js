@@ -1,5 +1,4 @@
 var allDocsUrl = "http://yeda.iriscouch.com/yeda_home/_all_docs?callback=?";
-//var allDocsUrl = "static/all_docs.json";
 var destDocTemplate = $('#dest-doc-template').html();
 var destDocDetailsTemplate = $('#dest-doc-details-template').html();
 var destLinkTemplate = $('#dest-link-template').html();
