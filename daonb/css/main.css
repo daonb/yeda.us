@@ -74,18 +74,18 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #e44d26;
+    border-bottom: 20px solid #326342;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-top: 20px solid #326342;
 }
 
 .header-container,
 .footer-container,
 .main aside {
-    background: #f16529;
+    background: #092e20;
 }
 
 .title {
@@ -110,13 +110,12 @@ nav a {
     text-decoration: none;
     font-weight: bold;
 
-    color: white;
-    background: #e44d26;
+    color: #eee;
 }
 
 nav a:hover,
 nav a:visited {
-    color: white;
+    color: #eee;
 }
 
 nav a:hover {
@@ -157,6 +156,13 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+h1,h2,h3,h4 {
+    font-family:"Trebuchet MS",sans-serif;
+    font-weight:normal;
+}
+body, th, td {
+    font:12px/1.4em Verdana,sans-serif;
+}
 
 
 
@@ -326,6 +332,13 @@ nav a:hover {
 
 .clearfix {
     *zoom: 1;
+}
+/* ==========================================================================
+   Boilerblate ends, starting local changes 
+   ========================================================================== */
+
+.subtitle {
+  color: #bbb;
 }
 
 /* ==========================================================================
