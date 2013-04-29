@@ -176,6 +176,11 @@ iframe {
     overflow-x: hidden;
 }
 
+.aside { float: right; }
+
+section { margin: 2em 0; }
+
+article { margin-bottom: 1em; }
 
 
 
@@ -270,10 +275,6 @@ iframe {
         margin: 0.5em;
     }
 
-    .aside {
-        float: right;
-        width: 28%;
-    }
 }
 
 @media only screen and (min-width: 1140px) {
