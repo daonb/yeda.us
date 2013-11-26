@@ -702,7 +702,7 @@ a:focus {
     for you.
 */
 #knights, #top10 { text-align: center; }
-#knights h1 { margin-top: 3em; font-size:150%;}
+#knights h1 { line-height: 200px; font-size:100px}
 #knights q { font-size: 70%; }
 #ready img {width:800px;}
 #moore img {width:800px;}
