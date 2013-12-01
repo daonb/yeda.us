@@ -702,7 +702,9 @@ a:focus {
     for you.
 */
 #knights, #top10 { text-align: center; }
-#knights h1 { line-height: 200px; font-size:100px}
+#knights h1 { line-height: 200px; font-size:100px; }
 #knights q { font-size: 70%; }
 #ready img {width:800px;}
 #moore img {width:800px;}
+#tennyson h1 { width: 2060px; line-height: 200px; font-size:100px; }
+#tennyson q {float:right;}
